@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .bars {
+            font: 10px sans-serif;
+            background-color: steelblue;
+            text-align: right;
+            padding: 3px;
+            margin: 1px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div id="horizontal-bar"></div>
+<svg width="960" height="500"></svg>
+
+<!-- Load in the d3 library -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+    var width = 500,
+            height = 400,
+            padding = 100;
+
+
+    var dataList = [{
+        val: 1,
+        name: 'Jan'
+    }, {
+        val: 50,
+        name: 'Feb'
+    }, {
+        val: 12,
+        name: 'Mar'
+    }, {
+        val: 24,
+        name: 'Apr'
+    }, {
+        val: 16,
+        name: 'May'
+    }];
+
+    //sort bars based on value
+    dataList = dataList.sort(function (a, b) {
+        return d3.descending(a.val, b.val);
+    })
+
+
+    //    var chart = d3.select("#horizontal-bar")
+    //            .append("div")
+    //            .attr("width",width)
+    //            .attr("height",height)
+    //            .attr("class", "chart");
+    //
+    //    chart.selectAll("div")
+    //            .data(dataList)
+    //            .enter().append("div")
+    //            .style("width", function (d) {
+    //                return d.val * 10 + "px";
+    //            })
+    //            .text(function (d) {
+    //                return d.val;
+    //            });
+
+
+    var svg = d3.select("svg"),
+            margin = {top: 50, right: 50, bottom: 50, left: 50},
+            width = svg.attr("width") - margin.left - margin.right,
+            height = svg.attr("height") - margin.top - margin.bottom,
+            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scalePoint()
+            .domain([0, 10])
+            .range([0, width])
+
+    var y = d3.scaleLinear()
+            .domain([-1e6, 2e6])
+            .range([height, 0]);
+
+    g.append("g")
+            .attr("transform", "translate(" + x(0) + ",0)")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y)
+                    .ticks(5, "s"));
+
+
+    g.append("g")
+            .attr("transform", "translate("+x(0)+",0)")
+            .attr("class", "axis")
+            .call(d3.axisTop(y)
+                    .ticks(5)
+                    .tickFormat(d3.formatPrefix(".1", 1e6)));
+
+
+        svg.selectAll("div")
+                .data(dataList)
+                .enter().append("rect")
+                .attr("x", 0)
+                .attr("y", function (d, i) {
+                    return i * 49;
+                })
+                .style("width", function (d) {
+                    return d.val * 10 + "px";
+                })
+                .style("height", "50")
+                .style("fill", "green")
+                .style("stroke", "white")
+                .style("stroke-width", "1")
+                .append("svg:title")
+                .text(function (d) {
+                    return d.val;
+                });
+
+
+</script>
+
+</body>
+</html>

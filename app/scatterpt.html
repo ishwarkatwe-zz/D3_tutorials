@@ -1,0 +1,3722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Line Graph</title>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+<body>
+
+
+<div id="line-chart" style="width:1000px; height:400px"></div>
+
+
+<!-- Load in the d3 library -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+<script type="text/javascript">
+
+    var dataset = [
+        {
+            "category": "JCPSA6",
+            "range": 1.471638,
+            "date": "08/06/1996",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471638,
+            "date": "08/06/1996",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471638,
+            "date": "08/06/1996",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.474971,
+            "date": "08/11/1997",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.44833,
+            "date": "01/03/1985",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.44833,
+            "date": "01/03/1985",
+            "journal": "Classical electromagnetism",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.44833,
+            "date": "01/03/1985",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.44833,
+            "date": "01/03/1985",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.44833,
+            "date": "01/03/1985",
+            "journal": "Quantum chemistry",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1468641,
+            "date": "08/05/2002",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1468641,
+            "date": "08/05/2002",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1468642,
+            "date": "08/05/2002",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1468642,
+            "date": "08/05/2002",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Optics and optical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Quantum mechanics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Condensed matter physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475033,
+            "date": "22/11/1997",
+            "journal": "Atomic and molecular physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476685,
+            "date": "22/07/1998",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476685,
+            "date": "22/07/1998",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476685,
+            "date": "22/07/1998",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476685,
+            "date": "22/07/1998",
+            "journal": "Quantum mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476685,
+            "date": "22/07/1998",
+            "journal": "Optics and optical physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.43858,
+            "date": "01/09/1979",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.43858,
+            "date": "01/09/1979",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.43858,
+            "date": "01/09/1979",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.43858,
+            "date": "01/09/1979",
+            "journal": "General physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1637582,
+            "date": "01/02/2004",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1637582,
+            "date": "01/02/2004",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1637582,
+            "date": "01/02/2004",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1637582,
+            "date": "01/02/2004",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480575,
+            "date": "01/01/2000",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480575,
+            "date": "01/01/2000",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480575,
+            "date": "01/01/2000",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480575,
+            "date": "01/01/2000",
+            "journal": "Particle physics",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.125164,
+            "date": "01/11/1999",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4763409,
+            "date": "12/11/2012",
+            "journal": "Nuclear physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4763409,
+            "date": "12/11/2012",
+            "journal": "Society and organization",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1610772,
+            "date": "15/10/2003",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1610772,
+            "date": "15/10/2003",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1610772,
+            "date": "15/10/2003",
+            "journal": "Nanotechnology",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3033368,
+            "date": "01/01/2009",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3033368,
+            "date": "01/01/2009",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3033368,
+            "date": "01/01/2009",
+            "journal": "Condensed matter physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3033368,
+            "date": "01/01/2009",
+            "journal": "Electronics",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3033368,
+            "date": "01/01/2009",
+            "journal": "Classical electromagnetism",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.166542,
+            "date": "22/09/2004",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.166542,
+            "date": "22/09/2004",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.166542,
+            "date": "22/09/2004",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.166542,
+            "date": "22/09/2004",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.166542,
+            "date": "22/09/2004",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.152143,
+            "date": "15/12/2002",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.152143,
+            "date": "15/12/2002",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.152143,
+            "date": "15/12/2002",
+            "journal": "Nanotechnology",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.152143,
+            "date": "15/12/2002",
+            "journal": "General physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457549,
+            "date": "01/11/1989",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457549,
+            "date": "01/11/1989",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457549,
+            "date": "01/11/1989",
+            "journal": "Atomic and molecular physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457549,
+            "date": "01/11/1989",
+            "journal": "Classical electromagnetism",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457549,
+            "date": "01/11/1989",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457549,
+            "date": "01/11/1989",
+            "journal": "Optics and optical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Energy",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Condensed matter physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Optics and optical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Atomic and molecular physics",
+            "count": 8
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3273087,
+            "date": "28/12/2009",
+            "journal": "Classical electromagnetism",
+            "count": 8
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.447982,
+            "date": "15/09/1984",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.447982,
+            "date": "15/09/1984",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.447982,
+            "date": "15/09/1984",
+            "journal": "Quantum mechanics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872877,
+            "date": "24/04/2014",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872877,
+            "date": "24/04/2014",
+            "journal": "Electronics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872877,
+            "date": "24/04/2014",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872877,
+            "date": "24/04/2014",
+            "journal": "Classical electromagnetism",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872877,
+            "date": "24/04/2014",
+            "journal": "Quantum chemistry",
+            "count": 5
+        },
+        {
+            "category": "JVTAD6",
+            "range": 1.4927166,
+            "date": "/11/2015",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "JVTAD6",
+            "range": 1.4927166,
+            "date": "/11/2015",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JVTAD6",
+            "range": 1.4927166,
+            "date": "/11/2015",
+            "journal": "Society and organization",
+            "count": 3
+        },
+        {
+            "category": "JVTAD6",
+            "range": 1.4927166,
+            "date": "/11/2015",
+            "journal": "Chemical physics",
+            "count": 4
+        },
+        {
+            "category": "JVTAD6",
+            "range": 1.4927166,
+            "date": "/11/2015",
+            "journal": "Electronics",
+            "count": 5
+        },
+        {
+            "category": "JVTAD6",
+            "range": 1.4927166,
+            "date": "/11/2015",
+            "journal": "Quantum mechanics",
+            "count": 6
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Electronics",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Society and organization",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Mathematical physics",
+            "count": 5
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Statistical physics",
+            "count": 5
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.2730353,
+            "date": "10/04/2007",
+            "journal": "Materials science",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.453502,
+            "date": "15/11/1987",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.453502,
+            "date": "15/11/1987",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47534,
+            "date": "08/06/1998",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47534,
+            "date": "08/06/1998",
+            "journal": "Atomic and molecular physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47534,
+            "date": "08/06/1998",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468308,
+            "date": "15/10/1994",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468308,
+            "date": "15/10/1994",
+            "journal": "Quantum mechanics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468308,
+            "date": "15/10/1994",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468308,
+            "date": "15/10/1994",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468308,
+            "date": "15/10/1994",
+            "journal": "Atomic and molecular physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468308,
+            "date": "15/10/1994",
+            "journal": "Materials science",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.478324,
+            "date": "01/03/1999",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.478324,
+            "date": "01/03/1999",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2794035,
+            "date": "21/11/2007",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2794035,
+            "date": "21/11/2007",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2794035,
+            "date": "21/11/2007",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2794035,
+            "date": "21/11/2007",
+            "journal": "Quantum mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2794035,
+            "date": "21/11/2007",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.474062,
+            "date": "22/06/1997",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.474062,
+            "date": "22/06/1997",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.474062,
+            "date": "22/06/1997",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.474062,
+            "date": "22/06/1997",
+            "journal": "General physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.453053,
+            "date": "01/09/1987",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.453053,
+            "date": "01/09/1987",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1384009,
+            "date": "01/08/2001",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1384009,
+            "date": "01/08/2001",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1384009,
+            "date": "01/08/2001",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.129002,
+            "date": "01/10/2000",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.129002,
+            "date": "01/10/2000",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.129002,
+            "date": "01/10/2000",
+            "journal": "General physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.129002,
+            "date": "01/10/2000",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1579464,
+            "date": "08/07/2003",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1579464,
+            "date": "08/07/2003",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2361293,
+            "date": "07/11/2006",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2361293,
+            "date": "07/11/2006",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2361293,
+            "date": "07/11/2006",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2361293,
+            "date": "07/11/2006",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2361293,
+            "date": "07/11/2006",
+            "journal": "Quantum mechanics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471097,
+            "date": "01/03/1996",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471097,
+            "date": "01/03/1996",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471097,
+            "date": "01/03/1996",
+            "journal": "Biological physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471097,
+            "date": "01/03/1996",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2031207,
+            "date": "22/08/2005",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2031207,
+            "date": "22/08/2005",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2031207,
+            "date": "22/08/2005",
+            "journal": "Nuclear physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2031207,
+            "date": "22/08/2005",
+            "journal": "Quantum mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2031207,
+            "date": "22/08/2005",
+            "journal": "Acoustics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2031207,
+            "date": "22/08/2005",
+            "journal": "Biological physics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Acoustics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Classical mechanics",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Chemical physics",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Condensed matter physics",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Mathematical physics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Quantum chemistry",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Plasma physics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Rheology and fluid dynamics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "Materials science",
+            "count": 9
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3659696,
+            "date": "07/11/2011",
+            "journal": "General physics",
+            "count": 9
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.370229,
+            "date": "15/04/1999",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.370229,
+            "date": "15/04/1999",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.370229,
+            "date": "15/04/1999",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.370229,
+            "date": "15/04/1999",
+            "journal": "Electronics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.370229,
+            "date": "15/04/1999",
+            "journal": "Chemical physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4937409,
+            "date": "14/12/2015",
+            "journal": "Classical mechanics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4937409,
+            "date": "14/12/2015",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4937409,
+            "date": "14/12/2015",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4937409,
+            "date": "14/12/2015",
+            "journal": "Condensed matter physics",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4937409,
+            "date": "14/12/2015",
+            "journal": "Nanotechnology",
+            "count": 5
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4937409,
+            "date": "14/12/2015",
+            "journal": "Quantum chemistry",
+            "count": 6
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.338775,
+            "date": "15/04/2010",
+            "journal": "Nanotechnology",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.338775,
+            "date": "15/04/2010",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.338775,
+            "date": "15/04/2010",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.338775,
+            "date": "15/04/2010",
+            "journal": "Energy",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.338775,
+            "date": "15/04/2010",
+            "journal": "Atomic and molecular physics",
+            "count": 5
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.338775,
+            "date": "15/04/2010",
+            "journal": "Materials science",
+            "count": 6
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3655,
+            "date": "15/04/1997",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.456313,
+            "date": "01/06/1989",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.456313,
+            "date": "01/06/1989",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.456313,
+            "date": "01/06/1989",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.456313,
+            "date": "01/06/1989",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.456313,
+            "date": "01/06/1989",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2943644,
+            "date": "14/07/2008",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2943644,
+            "date": "14/07/2008",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2943644,
+            "date": "14/07/2008",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2943644,
+            "date": "14/07/2008",
+            "journal": "Electronics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.473986,
+            "date": "15/03/1997",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.473986,
+            "date": "15/03/1997",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.473986,
+            "date": "15/03/1997",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.473986,
+            "date": "15/03/1997",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.473986,
+            "date": "15/03/1997",
+            "journal": "Optics and optical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471091,
+            "date": "01/03/1996",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471091,
+            "date": "01/03/1996",
+            "journal": "Quantum mechanics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471091,
+            "date": "01/03/1996",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Optics and optical physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Acoustics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Classical mechanics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Rheology and fluid dynamics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4770269,
+            "date": "14/12/2012",
+            "journal": "Classical electromagnetism",
+            "count": 9
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1805492,
+            "date": "08/11/2004",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1805492,
+            "date": "08/11/2004",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1805492,
+            "date": "08/11/2004",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1805492,
+            "date": "08/11/2004",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.449819,
+            "date": "01/07/1985",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.449819,
+            "date": "01/07/1985",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.449819,
+            "date": "01/07/1985",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.449819,
+            "date": "01/07/1985",
+            "journal": "Quantum mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.449819,
+            "date": "01/07/1985",
+            "journal": "Classical mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465662,
+            "date": "15/11/1993",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465662,
+            "date": "15/11/1993",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465662,
+            "date": "15/11/1993",
+            "journal": "Quantum mechanics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465662,
+            "date": "15/11/1993",
+            "journal": "Classical electromagnetism",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465662,
+            "date": "15/11/1993",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Nanotechnology",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Classical electromagnetism",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Atomic and molecular physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Quantum chemistry",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Condensed matter physics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "Plasma physics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3604818,
+            "date": "28/06/2011",
+            "journal": "General physics",
+            "count": 9
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Chemical physics",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Energy",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Electronics",
+            "count": 6
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4948,
+            "date": "23/05/2016",
+            "journal": "Mathematical physics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Classical electromagnetism",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Mathematical physics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3687001,
+            "date": "28/02/2012",
+            "journal": "Classical mechanics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4774083,
+            "date": "14/01/2013",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4774083,
+            "date": "14/01/2013",
+            "journal": "Nanotechnology",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4774083,
+            "date": "14/01/2013",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4774083,
+            "date": "14/01/2013",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4774083,
+            "date": "14/01/2013",
+            "journal": "Condensed matter physics",
+            "count": 5
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1540742,
+            "date": "01/03/2003",
+            "journal": "Classical mechanics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1540742,
+            "date": "01/03/2003",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1540742,
+            "date": "01/03/2003",
+            "journal": "Chemical physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1540742,
+            "date": "01/03/2003",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1540742,
+            "date": "01/03/2003",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1540742,
+            "date": "01/03/2003",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4902543,
+            "date": "07/12/2014",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4902543,
+            "date": "07/12/2014",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4902543,
+            "date": "07/12/2014",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4902543,
+            "date": "07/12/2014",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3023073,
+            "date": "10/11/2008",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3023073,
+            "date": "10/11/2008",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3023073,
+            "date": "10/11/2008",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3023073,
+            "date": "10/11/2008",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3023073,
+            "date": "10/11/2008",
+            "journal": "Photonics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3023073,
+            "date": "10/11/2008",
+            "journal": "Acoustics",
+            "count": 5
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Materials science",
+            "count": 5
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Classical electromagnetism",
+            "count": 6
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Statistical physics",
+            "count": 7
+        },
+        {
+            "category": "AAIDBI",
+            "range": 1.4961468,
+            "date": "/08/2016",
+            "journal": "Nanotechnology",
+            "count": 8
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Electronics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Classical mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.445136,
+            "date": "15/03/1983",
+            "journal": "Condensed matter physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.454968,
+            "date": "01/09/1988",
+            "journal": "Biological physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.454968,
+            "date": "01/09/1988",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471004,
+            "date": "15/02/1996",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471004,
+            "date": "15/02/1996",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471004,
+            "date": "15/02/1996",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471004,
+            "date": "15/02/1996",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.471004,
+            "date": "15/02/1996",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3094914,
+            "date": "02/03/2009",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3094914,
+            "date": "02/03/2009",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3094914,
+            "date": "02/03/2009",
+            "journal": "Chemical physics",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3094914,
+            "date": "02/03/2009",
+            "journal": "Nanotechnology",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3094914,
+            "date": "02/03/2009",
+            "journal": "Society and organization",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3094914,
+            "date": "02/03/2009",
+            "journal": "Classical electromagnetism",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476991,
+            "date": "08/09/1998",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476991,
+            "date": "08/09/1998",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476991,
+            "date": "08/09/1998",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476991,
+            "date": "08/09/1998",
+            "journal": "Classical mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.476991,
+            "date": "08/09/1998",
+            "journal": "Classical electromagnetism",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3602219,
+            "date": "28/06/2011",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3602219,
+            "date": "28/06/2011",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3602219,
+            "date": "28/06/2011",
+            "journal": "Optics and optical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3602219,
+            "date": "28/06/2011",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.3602219,
+            "date": "28/06/2011",
+            "journal": "Condensed matter physics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Materials science",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Classical electromagnetism",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Optics and optical physics",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Condensed matter physics",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Quantum mechanics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Quantum chemistry",
+            "count": 6
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Particle physics",
+            "count": 6
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3232215,
+            "date": "14/09/2009",
+            "journal": "Interdisciplinary physics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475496,
+            "date": "15/01/1998",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475496,
+            "date": "15/01/1998",
+            "journal": "General physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475496,
+            "date": "15/01/1998",
+            "journal": "Condensed matter physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475496,
+            "date": "15/01/1998",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475496,
+            "date": "15/01/1998",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.475496,
+            "date": "15/01/1998",
+            "journal": "Nuclear physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.463929,
+            "date": "15/09/1992",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Photonics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Mathematical physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Quantum mechanics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4804622,
+            "date": "21/05/2013",
+            "journal": "Materials science",
+            "count": 7
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1358826,
+            "date": "01/06/2001",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1358826,
+            "date": "01/06/2001",
+            "journal": "Atomic and molecular physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1358826,
+            "date": "01/06/2001",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.1358826,
+            "date": "01/06/2001",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2715565,
+            "date": "14/04/2007",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2715565,
+            "date": "14/04/2007",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2715565,
+            "date": "14/04/2007",
+            "journal": "General physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2147283,
+            "date": "14/01/2006",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2147283,
+            "date": "14/01/2006",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2147283,
+            "date": "14/01/2006",
+            "journal": "General physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460136,
+            "date": "15/06/1991",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460136,
+            "date": "15/06/1991",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460136,
+            "date": "15/06/1991",
+            "journal": "Condensed matter physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460136,
+            "date": "15/06/1991",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.48031,
+            "date": "01/12/1999",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.48031,
+            "date": "01/12/1999",
+            "journal": "Classical electromagnetism",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.48031,
+            "date": "01/12/1999",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.48031,
+            "date": "01/12/1999",
+            "journal": "Mathematical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.48031,
+            "date": "01/12/1999",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.48031,
+            "date": "01/12/1999",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Biological physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "General physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Statistical physics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Mathematical physics",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Classical electromagnetism",
+            "count": 8
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2446955,
+            "date": "21/02/2007",
+            "journal": "Astronomy and astrophysics",
+            "count": 9
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480781,
+            "date": "01/02/2000",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480781,
+            "date": "01/02/2000",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480781,
+            "date": "01/02/2000",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480781,
+            "date": "01/02/2000",
+            "journal": "Biological physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.480781,
+            "date": "01/02/2000",
+            "journal": "Optics and optical physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460244,
+            "date": "15/05/1991",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460244,
+            "date": "15/05/1991",
+            "journal": "Atomic and molecular physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460244,
+            "date": "15/05/1991",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460244,
+            "date": "15/05/1991",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.460244,
+            "date": "15/05/1991",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465194,
+            "date": "15/08/1993",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465194,
+            "date": "15/08/1993",
+            "journal": "Atomic and molecular physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.459809,
+            "date": "15/02/1991",
+            "journal": "Atomic and molecular physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.459809,
+            "date": "15/02/1991",
+            "journal": "Classical electromagnetism",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3309834,
+            "date": "01/03/2010",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3309834,
+            "date": "01/03/2010",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3309834,
+            "date": "01/03/2010",
+            "journal": "Nuclear physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3309834,
+            "date": "01/03/2010",
+            "journal": "Electronics",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3309834,
+            "date": "01/03/2010",
+            "journal": "Chemical physics",
+            "count": 5
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4861384,
+            "date": "14/01/2014",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4861384,
+            "date": "14/01/2014",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4861384,
+            "date": "14/01/2014",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4861384,
+            "date": "14/01/2014",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3517065,
+            "date": "01/12/2010",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3517065,
+            "date": "01/12/2010",
+            "journal": "Particle physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3517065,
+            "date": "01/12/2010",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3517065,
+            "date": "01/12/2010",
+            "journal": "Chemical physics",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3517065,
+            "date": "01/12/2010",
+            "journal": "Classical electromagnetism",
+            "count": 5
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.3517065,
+            "date": "01/12/2010",
+            "journal": "Quantum mechanics",
+            "count": 6
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Energy",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Nanotechnology",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Condensed matter physics",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Classical electromagnetism",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Mathematical physics",
+            "count": 6
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "Quantum chemistry",
+            "count": 7
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3119704,
+            "date": "13/04/2009",
+            "journal": "General physics",
+            "count": 8
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4757725,
+            "date": "21/10/2012",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4757725,
+            "date": "21/10/2012",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4757725,
+            "date": "21/10/2012",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4757725,
+            "date": "21/10/2012",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4757725,
+            "date": "21/10/2012",
+            "journal": "Mathematical physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.463781,
+            "date": "15/10/1992",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.463781,
+            "date": "15/10/1992",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.463781,
+            "date": "15/10/1992",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1462617,
+            "date": "15/04/2002",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1462617,
+            "date": "15/04/2002",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4800034,
+            "date": "07/05/2013",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4800034,
+            "date": "07/05/2013",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4800034,
+            "date": "07/05/2013",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.2742597,
+            "date": "21/05/2007",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.2742597,
+            "date": "21/05/2007",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.2742597,
+            "date": "21/05/2007",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.2742597,
+            "date": "21/05/2007",
+            "journal": "Classical electromagnetism",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.2742597,
+            "date": "21/05/2007",
+            "journal": "Electronics",
+            "count": 5
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.471029,
+            "date": "09/06/2012",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.471029,
+            "date": "09/06/2012",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.471029,
+            "date": "09/06/2012",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.471029,
+            "date": "09/06/2012",
+            "journal": "Energy",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.471029,
+            "date": "09/06/2012",
+            "journal": "Materials science",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Optics and optical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Mathematical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Biological physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Atomic and molecular physics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1504706,
+            "date": "08/10/2002",
+            "journal": "Condensed matter physics",
+            "count": 6
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Society and organization",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Quantum chemistry",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Materials science",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Electronics",
+            "count": 6
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.1865349,
+            "date": "14/02/2005",
+            "journal": "Classical electromagnetism",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Optics and optical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Nuclear physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Materials science",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.315414,
+            "date": "28/06/2009",
+            "journal": "Quantum mechanics",
+            "count": 7
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4901002,
+            "date": "07/11/2014",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4901002,
+            "date": "07/11/2014",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4901002,
+            "date": "07/11/2014",
+            "journal": "Condensed matter physics",
+            "count": 3
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4901002,
+            "date": "07/11/2014",
+            "journal": "Interdisciplinary physics",
+            "count": 4
+        },
+        {
+            "category": "JAPIAU",
+            "range": 1.4901002,
+            "date": "07/11/2014",
+            "journal": "Quantum chemistry",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457993,
+            "date": "15/02/1990",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457993,
+            "date": "15/02/1990",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457993,
+            "date": "15/02/1990",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.457993,
+            "date": "15/02/1990",
+            "journal": "Statistical physics",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1994058,
+            "date": "30/06/2005",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1994058,
+            "date": "30/06/2005",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1994058,
+            "date": "30/06/2005",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1994058,
+            "date": "30/06/2005",
+            "journal": "Society and organization",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Quantum mechanics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Geophysics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Materials science",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Mathematical physics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.4968562,
+            "date": "14/12/2016",
+            "journal": "Classical mechanics",
+            "count": 7
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872681,
+            "date": "24/04/2014",
+            "journal": "Nanotechnology",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872681,
+            "date": "24/04/2014",
+            "journal": "Chemical physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872681,
+            "date": "24/04/2014",
+            "journal": "Quantum chemistry",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872681,
+            "date": "24/04/2014",
+            "journal": "Society and organization",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4872681,
+            "date": "24/04/2014",
+            "journal": "Condensed matter physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465459,
+            "date": "15/12/1993",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.465459,
+            "date": "15/12/1993",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468504,
+            "date": "15/12/1994",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468504,
+            "date": "15/12/1994",
+            "journal": "Mathematical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468504,
+            "date": "15/12/1994",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.468504,
+            "date": "15/12/1994",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47489,
+            "date": "01/10/1997",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47489,
+            "date": "01/10/1997",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47489,
+            "date": "01/10/1997",
+            "journal": "Optics and optical physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47489,
+            "date": "01/10/1997",
+            "journal": "Quantum mechanics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.47489,
+            "date": "01/10/1997",
+            "journal": "Atomic and molecular physics",
+            "count": 5
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3274041,
+            "date": "14/12/2009",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3274041,
+            "date": "14/12/2009",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3274041,
+            "date": "14/12/2009",
+            "journal": "Nanotechnology",
+            "count": 3
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.3274041,
+            "date": "14/12/2009",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Quantum mechanics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Materials science",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Optics and optical physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Classical electromagnetism",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Condensed matter physics",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.1589732,
+            "date": "08/08/2003",
+            "journal": "Atomic and molecular physics",
+            "count": 6
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1390185,
+            "date": "06/07/2001",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1390185,
+            "date": "06/07/2001",
+            "journal": "Particle physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1390185,
+            "date": "06/07/2001",
+            "journal": "Optics and optical physics",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1390185,
+            "date": "06/07/2001",
+            "journal": "Atomic and molecular physics",
+            "count": 4
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1390185,
+            "date": "06/07/2001",
+            "journal": "Society and organization",
+            "count": 5
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.1390185,
+            "date": "06/07/2001",
+            "journal": "Quantum mechanics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Chemical physics",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Optics and optical physics",
+            "count": 2
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Atomic and molecular physics",
+            "count": 3
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "General physics",
+            "count": 4
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Mathematical physics",
+            "count": 5
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Nanotechnology",
+            "count": 6
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Classical electromagnetism",
+            "count": 7
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.2158987,
+            "date": "28/01/2006",
+            "journal": "Quantum chemistry",
+            "count": 8
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.434929,
+            "date": "01/08/1977",
+            "journal": "Quantum chemistry",
+            "count": 1
+        },
+        {
+            "category": "JCPSA6",
+            "range": 1.434929,
+            "date": "01/08/1977",
+            "journal": "Atomic and molecular physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4947625,
+            "date": "23/05/2016",
+            "journal": "Classical mechanics",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4947625,
+            "date": "23/05/2016",
+            "journal": "Quantum chemistry",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4947625,
+            "date": "23/05/2016",
+            "journal": "Materials science",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4947625,
+            "date": "23/05/2016",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4947625,
+            "date": "23/05/2016",
+            "journal": "Society and organization",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4947625,
+            "date": "23/05/2016",
+            "journal": "General physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4848272,
+            "date": "04/12/2013",
+            "journal": "Materials science",
+            "count": 1
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4848272,
+            "date": "04/12/2013",
+            "journal": "Condensed matter physics",
+            "count": 2
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4848272,
+            "date": "04/12/2013",
+            "journal": "Chemical physics",
+            "count": 3
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4848272,
+            "date": "04/12/2013",
+            "journal": "Society and organization",
+            "count": 4
+        },
+        {
+            "category": "APCPCS",
+            "range": 1.4848272,
+            "date": "04/12/2013",
+            "journal": "Electronics",
+            "count": 4
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.126268,
+            "date": "10/04/2000",
+            "journal": "Condensed matter physics",
+            "count": 1
+        },
+        {
+            "category": "APPLAB",
+            "range": 1.126268,
+            "date": "10/04/2000",
+            "journal": "Society and organization",
+            "count": 2
+        }
+    ];
+
+
+    var con = document.getElementById("line-chart").getBoundingClientRect();
+    var margin = {
+        left: 50,
+        right: 50,
+        top: 50,
+        bottom: 50
+    };
+
+    var xLine = {
+        key: 'date',
+        value: 'Publication Years'
+    }
+
+    var yLine = {
+        key: 'category',
+        value: 'category'
+    }
+
+    var rAttr = {
+        key: 'count',
+        value: 'Count'
+    }
+
+    var groupAttr = {
+        key: 'category',
+        value: 'Category'
+    }
+
+
+    var width = con.width,
+            height = con.height;
+
+    var zoom = d3.zoom()
+            .scaleExtent([1, 1.5])
+            .on("zoom", zoomed);
+
+    var parseTime = d3.timeParse("%d/%m/%Y");
+
+    var svg = d3.select("#line-chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .call(zoom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleBand().rangeRound([height, 0]).padding(0.1).align(0.25);
+    var r = d3.scaleLinear().range([0, 15]);
+    var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+    var x_axis = x.domain(d3.extent(dataset, function (d) {
+        return parseTime(d[xLine.key]);
+    }));
+
+
+    var y_axis = y.domain(d3.extent(dataset, function (d) {
+        return d[yLine.key];
+    }));
+
+    //    var y_axis = y.domain([0, d3.max(dataset, function (d) {
+//        console.log(d[yLine.key]);
+//        return d[yLine.key];
+//    })]);
+    var radius = r.domain([0, d3.max(dataset, function (d) {
+        return d[rAttr.key];
+    })]);
+
+    var xTick = d3.axisBottom(x).tickFormat(d3.timeFormat("%Y-%m-%d"));
+
+    var xAxisGTag = svg.append("g")
+            .attr("class", "X-Axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xTick);
+
+    // Add the Y Axis
+    svg.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y));
+
+
+    var circles = svg.selectAll(".dot")
+            .data(dataset)
+            .enter().append("circle") // Uses the enter().append() method
+            .attr("class", function (d) {
+                var className = 'dot ' + d[groupAttr.key];
+                return className;
+            })
+            .attr("cx", function (d) {
+                var date = parseTime(d[xLine.key]);
+                return x(date);
+            })
+            .attr("cy", function (d) {
+                return y(d[yLine.key]);
+            })
+            .attr("r", function (d) {
+                return radius(d[rAttr.key]);
+            })
+            .style("fill", function (d, i) {
+                return colorScale(d[groupAttr.key]);
+            })
+            .style("cursor", 'pointer')
+            .on("mouseover", function (d) {
+
+                d3.selectAll(".dot").style("opacity", ".1");
+                d3.selectAll('.' + d[groupAttr.key]).style("opacity", "1");
+
+                tooltip.html("Date : " + d[xLine.key] + ", <br>  Range : " + d[yLine.key] + ", <br>  Journal : " + d.journal + ", <br>  Category : " + d.category);
+                tooltip.style("visibility", "visible");
+
+                line(d3.mouse(this));
+            })
+            .on("mousemove", function (d) {
+
+                d3.selectAll(".dot").style("opacity", ".1");
+                d3.selectAll('.' + d[groupAttr.key]).style("opacity", "1");
+
+                line(d3.mouse(this));
+
+                return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+            })
+            .on("mouseout", function () {
+                clearFocus();
+
+                d3.selectAll(".dot").style("opacity", "1");
+
+                return tooltip.style("visibility", "hidden");
+            });
+
+
+    function zoomed() {
+        xAxisGTag.transition()
+                .duration(50)
+                .call(xTick.scale(d3.event.transform.rescaleX(x)));
+
+        var newX = d3.event.transform.rescaleX(x);
+
+        circles.attr("cx", function (d) {
+            return newX(parseTime(d[xLine.key]));
+        });
+    }
+
+
+    var tooltip = d3.select("body")
+            .append("div")
+            .style("position", "absolute")
+            .style("z-index", "10")
+            .style("visibility", "hidden")
+            .style("color", "white")
+            .style("padding", "8px")
+            .style("background-color", "rgba(0, 0, 0, 0.75)")
+            .style("border-radius", "6px")
+            .style("font", "12px sans-serif")
+            .text("tooltip");
+
+    function line(mouse) {
+
+        clearFocus();
+
+        svg.append("line")
+                .attr("class", 'focus-x')
+                .attr("x1", 0)
+                .attr("y1", mouse[1])
+                .attr("x2", mouse[0] - 15)
+                .attr("y2", mouse[1])
+                .style("stroke","#ccc")
+                .style("stroke-width","2")
+                .style("stroke-dasharray", ("3, 3"));
+
+
+        svg.append("line")
+                .attr("class", 'focus-y')
+                .attr("x1", mouse[0])
+                .attr("y1", mouse[1] + 15)
+                .attr("x2", mouse[0])
+                .attr("y2", height)
+                .style("stroke","#ccc")
+                .style("stroke-width","2")
+                .style("stroke-dasharray", ("3, 3"));
+    }
+
+
+    function clearFocus() {
+        d3.select(".focus-x").remove();
+        d3.select(".focus-y").remove();
+    }
+</script>
+</body>
+</html>
